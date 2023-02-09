@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/converter")
 public class ConverterController {
+    private ParseRatesController prc = new ParseRatesController();
 
     @GetMapping("/convert/EURtoCNY/{EUR}")
     public String convertEURtoCNY(@PathVariable(name = "EUR") String EURvalue) {
-        double rate0 = 1;
-        double rate1 = 2;
+        String[] rates = prc.getRates();
+        double rate0 = Double.parseDouble(rates[0]);
+        double rate1 = Double.parseDouble(rates[1]);
         try {
             double value = Double.parseDouble(EURvalue) * rate0;
             return EURvalue + " EUR = " + String.format("%.6f", value / rate1) + " CNY";
@@ -23,8 +25,9 @@ public class ConverterController {
 
     @GetMapping("/convert/CNYtoEUR/{CNY}")
     public String convertCNYtoEUR(@PathVariable(name = "CNY") String CNYvalue) {
-        double rate0 = 1;
-        double rate1 = 2;
+        String[] rates = prc.getRates();
+        double rate0 = Double.parseDouble(rates[0]);
+        double rate1 = Double.parseDouble(rates[1]);
         try {
             double value = Double.parseDouble(CNYvalue) * rate1;
             return CNYvalue + " CNY = " + String.format("%.6f", value / rate0) + " EUR";
