@@ -17,7 +17,7 @@ public class ParseRatesController {
     private final static String URL = "http://www.cbr.ru/scripts/XML_daily.asp";
     private final int[] ids = new int[]{14,22};
 
-    protected String[] getRates(){
+    public String[] getRates(){
         String[] rates = new String[2];
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = null;
